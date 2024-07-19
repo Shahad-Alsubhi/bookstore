@@ -18,12 +18,14 @@ const Signup = () => {
           method:'POST',headers:{"Content-Type":"application/json"},
           body:JSON.stringify(data)
       }).then(async(res)=>{
+        const Res = await res.json();
         if(!res.ok){
-           const errorRes=await res.json();
-          setErrorMessage(errorRes.message)}
+          setErrorMessage(Res.message)}
           else{
-            navigate("/books")
-        }
+            localStorage.setItem("user", JSON.stringify(Res.token));
+
+            navigate("/books/category/all")
+          }
       })
     };
   

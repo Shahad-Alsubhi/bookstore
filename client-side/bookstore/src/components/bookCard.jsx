@@ -1,23 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "../css/bookCard.css";
 import { IoMdHeart } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
+import { UserContext } from "../Layout";
 
-
-export default function BookCard({ book , wishList=false}) {
+export default function BookCard({ book, wishList = false }) {
   const [like, setLike] = useState(false);
+  const {user}=useContext(UserContext);
+
 
   const liked = async () => {
-    
     await fetch(`http://localhost:5500/books/favorite/${book._id}`, {
-      credentials: "include", 
+      headers: {
+        "Content-Type":"application/json",
+        'Authorization':`Bearer ${user}`
+      },
     }).then((res) => {
       if (res.ok) {
         setLike(!like);
-      }
-      else{
+      } else {
         alert("You need to login first");
-
       }
     });
   };
@@ -30,15 +32,19 @@ export default function BookCard({ book , wishList=false}) {
         <h3>by: {book.authors}</h3>
         <h4 id="price">34.00$</h4>
         <button>Add</button>
-        {wishList?
-        <MdDeleteOutline className="deleteIcon"
-          style={{ color:"black"}}
-          onClick={liked}
-        />:
-        <IoMdHeart className="likeIcon"
-          style={{ color: like ? "red" : "grey"}}
-          onClick={liked}
-        />}
+        {wishList ? (
+          <MdDeleteOutline
+            className="deleteIcon"
+            style={{ color: "black" }}
+            onClick={liked}
+          />
+        ) : (
+          <IoMdHeart
+            className="likeIcon"
+            style={{ color: like ? "red" : "grey" }}
+            onClick={liked}
+          />
+        )}
       </div>
     </div>
   );

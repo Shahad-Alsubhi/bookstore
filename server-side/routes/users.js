@@ -5,7 +5,7 @@ import { requireLogin } from "../middelware/signin.js";
 const router = express.Router();
 
 router.get("/user/favorite", requireLogin, async (req, res) => {
-  const id = req.session.userId;
+  const id = req.userId;
   const user = await User.findById(id).populate("favoriteBooks");
 
   if (user) {

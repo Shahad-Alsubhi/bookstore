@@ -13,7 +13,7 @@ router.get("/category/:categoryName", async (req, res) => {
 
 router.get("/favorite/:bookId", requireLogin, async (req, res) => {
   const bookId = req.params.bookId;
-  const userId = req.session.userId;
+  const userId = req.userId;
 
   const user = await User.findOne({ _id: userId }).populate("favoriteBooks");
 

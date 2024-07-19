@@ -2,7 +2,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import booksRoutes from "./routes/books.js";
 import AuthenticationRoutes from "./routes/login-signup.js";
-import session from "express-session";
+// import session from "express-session";
 import usersRoutes from "./routes/users.js"
 
 
@@ -15,7 +15,7 @@ app.use(cors
     credentials: true
   })
 ); 
-app.use(session({secret:"secret"}))
+// app.use(session({secret:"secret"}))
 
 
 app.listen(5500, () => {

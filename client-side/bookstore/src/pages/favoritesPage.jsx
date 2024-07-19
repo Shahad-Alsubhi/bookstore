@@ -1,21 +1,26 @@
 import "../css/category.css";
 // import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import BookCard from "../components/bookCard";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../Layout";
 
 export default function FavoritesPage() {
   // const { id } = useParams();
+  const {user}=useContext(UserContext);
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
+    if(!user)navigate("/books/login");
 
   const fetchData = async () => {
   
     const res = await fetch(
-      `http://localhost:5500/users/user/favorite`, {
-        credentials: "include",
-      }
+      `http://localhost:5500/users/user/favorite`, 
+     { headers: {
+        "Content-Type":"application/json",
+        'Authorization':`Bearer ${user}`
+      },}
     );
 
     if (res.ok) {
@@ -32,9 +37,10 @@ export default function FavoritesPage() {
       const books = await fetchData();
       setBooks(books);
     };
+    
 
     getBooks();
-  }, []);
+  }, [user]);
 
   return (
     <div className="container">

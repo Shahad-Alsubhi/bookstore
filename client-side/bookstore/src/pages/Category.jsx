@@ -1,11 +1,13 @@
 import "../css/category.css";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import BookCard from "../components/bookCard";
+import { UserContext } from "../Layout";
 
 export default function Category() {
   const { categoryName } = useParams();
+  const {user}=useContext(UserContext)
 
   const [books, setBooks] = useState([]);
 
@@ -20,11 +22,11 @@ export default function Category() {
   useEffect(() => {
     const getBooks = async () => {
       const books = await fetchData();
-      setBooks(books);
+      setBooks( [...books]);
     };
 
     getBooks();
-  }, [categoryName]);
+  }, [categoryName, user]);
 
   return (
     <div className="container">
