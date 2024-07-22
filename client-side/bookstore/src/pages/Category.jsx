@@ -1,13 +1,11 @@
 import "../css/category.css";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import {  useEffect } from "react";
 import { useState } from "react";
 import BookCard from "../components/bookCard";
-import { UserContext } from "../Layout";
 
 export default function Category() {
   const { categoryName } = useParams();
-  const {user}=useContext(UserContext)
 
   const [books, setBooks] = useState([]);
 
@@ -22,17 +20,20 @@ export default function Category() {
   useEffect(() => {
     const getBooks = async () => {
       const books = await fetchData();
-      setBooks( [...books]);
+
+      setBooks(books);
     };
 
     getBooks();
-  }, [categoryName, user]);
+  }, [categoryName]);
 
   return (
     <div className="container">
-      {categoryName=="all"?
-      <h1>Browse all books</h1>:
-      <h1>{categoryName}</h1>}
+      {categoryName == "all" ? (
+        <h1>Browse all books</h1>
+      ) : (
+        <h1>{categoryName}</h1>
+      )}
       <div className="booksContainer">
         {books.map((book) => (
           <BookCard key={book._id} book={book} />

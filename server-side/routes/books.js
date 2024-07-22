@@ -11,7 +11,8 @@ router.get("/category/:categoryName", async (req, res) => {
   return res.json(books);
 });
 
-router.get("/favorite/:bookId", requireLogin, async (req, res) => {
+router.post("/favorite/:bookId", requireLogin, async (req, res) => {
+  try{
   const bookId = req.params.bookId;
   const userId = req.userId;
 
@@ -31,7 +32,12 @@ router.get("/favorite/:bookId", requireLogin, async (req, res) => {
       { $pull: { favoriteBooks: foundBook._id } }
     );
   }
-  return res.status(200).json({ message: "favorites have been updated" });
+  return res.status(200).json({ message: "favorites have been updated" });}
+  catch(e){
+    console.error("Error fetching favorite books:", e);
+    return res.status(500).json({ message: "Internal server error" });
+
+  }
 });
 
 // router.get("/:id", async (req, res) => {

@@ -8,6 +8,7 @@ import { UserContext } from "../Layout";
 
 export default function Header() {
   const {user,setUser} = useContext(UserContext);
+
   const logout=()=>{
     setUser("")
     localStorage.removeItem("user")
@@ -52,19 +53,21 @@ export default function Header() {
               <CiSearch style={{ marginBottom: "-2px" }} />{" "}
               <input type="text" placeholder="Search Book..." />
             </div>
+            <NavLink to="/books/cartPage">
             <RiShoppingBag4Line
               style={{
                 fontSize: "22px",
                 marginRight: "12px",
                 cursor: "pointer",
+                color:"black"
               }}
-            />
+            /></NavLink>
             {!user ? (
               <NavLink to="/books/login" className="signIn-btn">
                 sign in
               </NavLink>
             ) : (
-              <button onClick={logout} className="signIn-btn">
+              <button onClick={logout} style={{fontSize:"16px" ,cursor:"pointer"}} className="signIn-btn">
                 logout
               </button>
             )}

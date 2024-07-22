@@ -9,6 +9,7 @@ async function getBooks(categoryName){
        }
 
        const books = await Book.find({ category: categoryName });
+       console.log(typeof(books))
        return books;
 
 }

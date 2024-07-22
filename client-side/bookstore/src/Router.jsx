@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import FavoritesPage from "./pages/favoritesPage";
 import Layout from "./Layout";
 import Signup from "./pages/Signup";
+import CartPage from './pages/CartPage';
 
 const Router = createBrowserRouter([
   {
@@ -20,26 +21,24 @@ const Router = createBrowserRouter([
         element: <Category />,
       },
       {
-        path:"/books/user/favourite",
-        element:<FavoritesPage/>
-      },{
-        path:'/books/login',
-        element:<Login/>
+        path: "/books/user/favourite",
+        element: <FavoritesPage />,
       },
       {
-        path:'/books/Signup',
-        element:<Signup/>
-      }
+        path: "/books/login",
+        element: <Login />,
+      },
+      {
+        path: "/books/Signup",
+        element: <Signup />,
+      },
+      {
+        path: "/books/cartPage",
+        element: <CartPage />,
+      },
+      
     ],
   },
-  // {
-  //   path:'/login',
-  //   element:<Login/>
-  // },
-  // {
-  //   path:'/Signup',
-  //   element:<Signup/>
-  // }
   
 ]);
 

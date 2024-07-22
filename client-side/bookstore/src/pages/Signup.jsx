@@ -1,6 +1,7 @@
 import { NavLink,useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import {  useState } from "react";
+import {  useContext, useState } from "react";
+import { UserContext } from "../Layout";
 const Signup = () => {
  
     const [errorMessage,setErrorMessage]=useState('');
@@ -9,6 +10,8 @@ const Signup = () => {
       handleSubmit,
       formState: { errors },
     } = useForm();
+    const { setUser } = useContext(UserContext);
+
     
     const navigate = useNavigate();
 
@@ -22,7 +25,8 @@ const Signup = () => {
         if(!res.ok){
           setErrorMessage(Res.message)}
           else{
-            localStorage.setItem("user", JSON.stringify(Res.token));
+            localStorage.setItem("user", Res.token);
+            setUser(Res.token);
 
             navigate("/books/category/all")
           }

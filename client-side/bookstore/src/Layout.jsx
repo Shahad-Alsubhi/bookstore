@@ -1,18 +1,12 @@
 import { Outlet } from "react-router-dom"
 import Header from "./components/header"
-import { createContext, useEffect, useState } from "react"
+import { createContext, useState } from "react"
 
-export const UserContext =createContext();
+export const UserContext = createContext();
+
 const Layout = () => {
-  const [user,setUser]=useState("");
-  useEffect( () => {
-     function getUser(){
-    const token =  localStorage.getItem("user");
-    if (token) {
-      setUser(token);
-    }}
-    getUser()
-  }, []);
+  const initUser=localStorage.getItem("user")
+  const [user,setUser]=useState(initUser?initUser:"");
   
   return (
     <div>

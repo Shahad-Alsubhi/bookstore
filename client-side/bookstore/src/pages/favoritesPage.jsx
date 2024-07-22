@@ -7,21 +7,17 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../Layout";
 
 export default function FavoritesPage() {
-  // const { id } = useParams();
-  const {user}=useContext(UserContext);
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
-    if(!user)navigate("/books/login");
 
   const fetchData = async () => {
-  
-    const res = await fetch(
-      `http://localhost:5500/users/user/favorite`, 
-     { headers: {
-        "Content-Type":"application/json",
-        'Authorization':`Bearer ${user}`
-      },}
-    );
+    const res = await fetch(`http://localhost:5500/users/user/favorite`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user}`,
+      },
+    });
 
     if (res.ok) {
       const { favoriteBooks } = await res.json();
@@ -29,15 +25,18 @@ export default function FavoritesPage() {
     } else {
       navigate("/books/login");
     }
-   
   };
 
   useEffect(() => {
     const getBooks = async () => {
-      const books = await fetchData();
-      setBooks(books);
+      if (!user) {
+        navigate("/books/login");
+      } else {
+        const books = await fetchData();
+
+        setBooks(books);
+      }
     };
-    
 
     getBooks();
   }, [user]);
@@ -45,12 +44,15 @@ export default function FavoritesPage() {
   return (
     <div className="container">
       <h1>Wishlist</h1>
-      {books.length==0?<h3>No favorite books found </h3>:
-      <div className="booksContainer">
-        {books.map((book) => (
-          <BookCard key={book._id} book={book} wishList={true} />
-        ))}
-      </div>} 
+      {books.length == 0 ? (
+        <h3>No favorite books found </h3>
+      ) : (
+        <div className="booksContainer">
+          {books.map((book) => (
+            <BookCard key={book._id} book={book} wishList={true} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

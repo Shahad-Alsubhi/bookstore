@@ -1,0 +1,74 @@
+
+.tableContainer {
+    margin: 20px;
+    padding: 10px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+ }
+  
+  .table thead {
+    background-color: #f4f4f4;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  .book-cover-img {
+    width: 30px; 
+    height: 50px; 
+  }
+  
+  .checkout-btn {
+    background-color: #0b0b0b; 
+    color: white;           
+    border: none;            
+    padding: 10px 20px;      
+    cursor: pointer;          
+    font-size: 18px;          
+    border-radius: 5px;       
+    margin-top: 20px;         
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .table td {
+    position: relative;
+  }
+  
+  
+  .quantity-button {
+    background-color: #dee0e1; 
+    color: black;             
+    border: none;             
+    padding: 5px 10px;        
+    cursor: pointer;         
+    font-size: 16px;          
+    margin: 0 5px;            
+    border-radius: 3px;       
+  }
+  
+  

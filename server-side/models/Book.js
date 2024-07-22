@@ -25,6 +25,11 @@ const bookSChema = new Schema(
     bookCover: {
       type: String,
     },
+    price:{
+      type:Number,
+      required:true,
+
+    },
     category: {
       type: String,
       enum: ["Computers", "Health & Wellbeing", "Education", "Art & Design"],

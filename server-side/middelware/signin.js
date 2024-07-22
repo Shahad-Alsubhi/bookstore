@@ -4,23 +4,24 @@ import userRepo from "../repository/registrationRepo.js";
 import jwt from "jsonwebtoken";
 
 const requireLogin = async (req, res, next) => {
-  // if(req.session.userId){
-  //   return next()
-  // }
-  // return res.status(401).json({message:"authorization token required"})
-
+ 
   const { authorization } = req.headers;
 
   if (!authorization) {
     return res.status(401).json({ message: "authorization token required" });
   }
+  
   const token = authorization.split(" ")[1];
-console.log(token)
+   if(!token){
+    return res.status(401).json({ message: "authorization token required" });
+  }
+
   try {
     const { userId } = jwt.verify(token, process.env.SECRET);
     req.userId = await User.findOne({ _id: userId }).select("_id");
     next();
   } catch (e) {
+
     console.log(e);
     return res.status(401).json({ message: "invalid token" });
   }

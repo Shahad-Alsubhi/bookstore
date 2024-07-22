@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-  
   userName: {
     type: String,
     require: true,
@@ -20,6 +19,7 @@ const userSchema = mongoose.Schema({
       ref: "book",
     },
   ],
+ 
 });
 
 const User = mongoose.model("user", userSchema);

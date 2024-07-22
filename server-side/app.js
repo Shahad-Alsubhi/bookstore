@@ -15,7 +15,6 @@ app.use(cors
     credentials: true
   })
 ); 
-// app.use(session({secret:"secret"}))
 
 
 app.listen(5500, () => {
