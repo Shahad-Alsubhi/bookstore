@@ -1,12 +1,10 @@
-import { useContext } from "react";
-import { UserContext } from "../Layout";
+
 import { MdDeleteOutline } from "react-icons/md";
 import "../css/cartPage.css";
 // import { useNavigate } from "react-router-dom";
 import useCart from "../hook/useCart";
 
 const CartPage = () => {
-  const { user } = useContext(UserContext);
   // const [cartItems, setCartItems] = useState([]);
   // const navigate = useNavigate();
 
@@ -82,39 +80,10 @@ const CartPage = () => {
     handleIncrease,
     handleDecrease,
     calculateTotal,
+    handlecheckout
   } = useCart();
 
-  const handlecheckout = async () => {
-
-    const amount = calculateTotal();
-    const res = await fetch("http://localhost:5500/users/user/createOrder", {
-      method: "post",
-      body: JSON.stringify({ cartItems, amount: amount.toString() }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user}`,
-      },
-    });
-
-    if (res.ok) {
-      const {orderId}=await res.json()
-      const response = await fetch("http://localhost:5500/users/paymentPage", {
-        method: "post",
-        body:JSON.stringify({ amount: amount.toString(),cartId:orderId}),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user}`,
-        },
-      });
-      const result = await response.json();
-      if (result.redirect_link) {
-        window.location.href = result.redirect_link;
-      } else {
-        console.error("Failed to get redirect URL:", result.error);
-      }
-    }
-    
-  };
+ 
   return (
     <div className="container" style={{ justifyContent: "center" }}>
       <h1 style={{ textAlign: "center" }}>Items Added to The Cart</h1>
